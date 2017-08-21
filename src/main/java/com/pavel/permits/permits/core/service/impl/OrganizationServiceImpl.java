@@ -14,12 +14,12 @@ import java.util.List;
  */
 
 @Service
-public class OrganizationServieImpl implements OrganizationService {
+public class OrganizationServiceImpl implements OrganizationService {
 
     @Autowired
     private OrganizationRepository repository;
 
-    public OrganizationServieImpl(OrganizationRepository repository) {
+    public OrganizationServiceImpl(OrganizationRepository repository) {
         this.repository = repository;
     }
 

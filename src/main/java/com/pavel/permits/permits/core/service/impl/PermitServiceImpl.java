@@ -14,12 +14,12 @@ import java.util.List;
  */
 
 @Service
-public class PermitServieImpl implements PermitService {
+public class PermitServiceImpl implements PermitService {
 
     @Autowired
     private PermitRepository repository;
 
-    public PermitServieImpl(PermitRepository repository) {
+    public PermitServiceImpl(PermitRepository repository) {
         this.repository = repository;
     }
 
