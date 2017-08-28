@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>HomePage</title>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 </head>
 <body>
-    This is test: how spring boot sends static content.
+    <div class="container">
+        <table class="highlight" id="permits">
+            <thead>
+            <tr>
+                <th>Физическое лицо</th>
+                <th>Организация</th>
+                <th>Должность</th>
+                <th>Срок действия</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>Иванов И.И</td>
+                <td>ГХК</td>
+                <td>инженер</td>
+                <td>03.03.2017</td>
+            </tr>
+            <tr>
+                <td>Иванов И.И</td>
+                <td>ГХК</td>
+                <td>инженер</td>
+                <td>03.03.2017</td>
+            </tr>
+            <tr>
+                <td>Иванов И.И</td>
+                <td>ГХК</td>
+                <td>инженер</td>
+                <td>03.03.2017</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+
+<script>
+    $.getJSON("/api/permit", function (result) {
+        var tr;
+        for (var i = 0; i < result.length; i++) {
+            tr = $('<tr/>');
+            var name =
+                    result[i].person_last_name + " " +
+                    result[i].person_first_name[0] + "." +
+                    result[i].person_middle_name[0];
+
+            tr.append(
+                    "<td>" + name + "</td>" +
+                    "<td>" + result[i].person_org + "</td>" +
+                    "<td>" + result[i].person_position + "</td>");
+            $("#permits").append(tr);
+        }
+    })
+</script>
 </html>
