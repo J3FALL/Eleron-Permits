@@ -12,37 +12,29 @@
 </head>
 <body>
     <div class="container">
-        <table class="highlight" id="permits">
-            <thead>
-            <tr>
-                <th>Физическое лицо</th>
-                <th>Организация</th>
-                <th>Должность</th>
-                <th>Срок действия</th>
-            </tr>
-            </thead>
+        <script id = "permit-template" type="text/x-handlebars-template">
+            <table class="highlight">
+                <thead>
+                <tr>
+                    <th>Физическое лицо</th>
+                    <th>Организация</th>
+                    <th>Должность</th>
+                    <th>Срок действия</th>
+                </tr>
+                </thead>
 
-            <tbody>
-            <tr>
-                <td>Иванов И.И</td>
-                <td>ГХК</td>
-                <td>инженер</td>
-                <td>03.03.2017</td>
-            </tr>
-            <tr>
-                <td>Иванов И.И</td>
-                <td>ГХК</td>
-                <td>инженер</td>
-                <td>03.03.2017</td>
-            </tr>
-            <tr>
-                <td>Иванов И.И</td>
-                <td>ГХК</td>
-                <td>инженер</td>
-                <td>03.03.2017</td>
-            </tr>
-            </tbody>
-        </table>
+                <tbody>
+                {{#permits}}
+                <tr>
+                    <td>{{name person_last_name person_first_name person_middle_name}}</td>
+                    <td>{{person_org}}</td>
+                    <td>{{person_position}}</td>
+                    <td>03.03.2017</td>
+                </tr>
+                {{/permits}}
+                </tbody>
+            </table>
+        </script>
     </div>
 </body>
 
@@ -50,23 +42,18 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/handlebars-v4.0.10.js"></script>
 
 <script>
-    $.getJSON("/api/permit", function (result) {
-        var tr;
-        for (var i = 0; i < result.length; i++) {
-            tr = $('<tr/>');
-            var name =
-                    result[i].person_last_name + " " +
-                    result[i].person_first_name[0] + "." +
-                    result[i].person_middle_name[0];
+    $.getJSON("/api/permit", function (permits) {
+        var data = {'permits' : permits};
+        var source = $("#permit-template").html();
+        var template = Handlebars.compile(source);
+        $('body').append(template(data));
+    });
 
-            tr.append(
-                    "<td>" + name + "</td>" +
-                    "<td>" + result[i].person_org + "</td>" +
-                    "<td>" + result[i].person_position + "</td>");
-            $("#permits").append(tr);
-        }
-    })
+    Handlebars.registerHelper('name', function (person_last_name, person_first_name, person_middle_name) {
+        return person_last_name + ". " + person_first_name[0] + "." + person_middle_name[0];
+    });
 </script>
 </html>
