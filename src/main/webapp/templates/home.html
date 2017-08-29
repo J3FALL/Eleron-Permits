@@ -14,6 +14,7 @@
     <script>
         $(document).ready(function(){
             $('.collapsible').collapsible();
+            Materialize.updateTextFields();
         });
 
         $.getJSON("/api/permit", function (permits) {
@@ -22,9 +23,9 @@
             var template = Handlebars.compile(source);
             $('#content').append(template(data));
         });
-        /*Handlebars.registerHelper('name', function (person_last_name, person_first_name, person_middle_name) {
-         return person_last_name + ". " + person_first_name[0] + "." + person_middle_name[0];
-         });*/
+        Handlebars.registerHelper('name', function (person_last_name, person_first_name, person_middle_name) {
+         return person_last_name + " " + person_first_name[0] + "." + person_middle_name[0];
+         });
     </script>
 
     <!--Let browser know website is optimized for mobile-->
@@ -35,14 +36,120 @@
     <script id="permits-template" type="text/x-handlebars-template">
         {{#permits}}
         <li>
-            <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{person_last_name}}</div>
-            <div class="collapsible-body"><span>{{person_org}}</span></div>
+            <div class="collapsible-header">
+                <div class="row" style="width:100%">
+                    <div class="col s3">
+                        <p>{{name person_last_name person_first_name person_middle_name}}</p>
+                    </div>
+                    <div class="col s3">
+                        <p>{{person_org}}</p>
+                    </div>
+                    <div class="col s3">
+                        <p>{{person_position}}</p>
+                    </div>
+                    <div class="col s3">
+                        <p>Дата какая-нибудь</p>
+                    </div>
+                </div>
+            </div>
+            <div class="collapsible-body">
+                <div class="row" style="width:100%">
+                    <div class="input-field col s4">
+                        <input placeholder="Фамилия" value="{{person_last_name}}" id="last_name" type="text">
+                        <label class="active" for="last_name">Фамилия</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Имя" value="{{person_first_name}}" id="first_name" type="text">
+                        <label class="active" for="first_name">Имя</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Отчество" value="{{person_middle_name}}" id="middle_name" type="text">
+                        <label class="active" for="middle_name">Отчество</label>
+                    </div>
+                </div>
+                <div class="row" style="width:100%">
+                    <div class="input-field col s6">
+                        <input placeholder="Организация" value="{{person_org}}" id="org" type="text">
+                        <label class="active" for="org">Организация</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Должность" value="{{person_position}}" id="position" type="text">
+                        <label class="active" for="position">Должность</label>
+                    </div>
+                </div>
+                <div class="row" style="width:100%">
+                    <div class="input-field col s4">
+                        <input placeholder="Дата выдачи" value="01.01.2017" id="issue_date" type="text">
+                        <label class="active" for="issue_date">Дата выдачи</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Срок действия" value="01.01.2017" id="expired_date" type="text">
+                        <label class="active" for="issue_date">Срок действия</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input placeholder="Срок согласования" value="01.01.2017" id="agreed_date" type="text">
+                        <label class="active" for="issue_date">Срок согласования</label>
+                    </div>
+                </div>
+                <div class="row" style="width:100%">
+                    <div class="input-field col s4">
+                        <input placeholder="Вид пропуска" value="{{pass_name}}" id="pass" type="text">
+                        <label class="active" for="pass">Вид пропуска</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="chip">test</div>
+                </div>
+            </div>
         </li>
         {{/permits}}
     </script>
-    <div class="container">
-        <ul class="collapsible" id="content" data-collapsible="accordion">
-        </ul>
+
+    <!-- Navbar goes here -->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">Вкладыши</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>
+                <li><a href="collapsible.html">JavaScript</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Page Layout here -->
+    <div class="row" >
+
+        <div class="col s3">
+            <!-- Grey navigation panel -->
+            <ul class="side-nav fixed" style="margin-top: 70px">
+                <li class="bold">
+                    <a href="/">Вкладыши</a>
+                </li>
+                <li class="bold">
+                    <a href="/">Физические лица</a>
+                </li>
+                <li class="bold">
+                    <a href="/">Организации</a>
+                </li>
+                <li class="bold">
+                    <a href="/">Должности</a>
+                </li>
+                <li class="bold">
+                    <a href="/">Виды пропусков</a>
+                </li>
+                <li class="bold">
+                    <a href="/">Шифры</a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="col s9">
+            <!-- Teal page content  -->
+            <ul class="collapsible popout" id="content" data-collapsible="accordion">
+            </ul>
+        </div>
+
     </div>
 
 
