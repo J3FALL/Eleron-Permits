@@ -36,4 +36,9 @@ public class ViewController {
     public String codesPage() {
         return "codes";
     }
+
+    @RequestMapping(value = "/passes", method = RequestMethod.GET)
+    public String passesPage() {
+        return "passes";
+    }
 }
