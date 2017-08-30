@@ -16,4 +16,9 @@ public class ViewController {
 
         return "home";
     }
+
+    @RequestMapping(value = "/persons", method = RequestMethod.GET)
+    public String personsPage() {
+        return "persons";
+    }
 }
