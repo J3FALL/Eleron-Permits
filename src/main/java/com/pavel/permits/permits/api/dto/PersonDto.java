@@ -25,6 +25,13 @@ public class PersonDto {
     @JsonProperty("position_id")
     private Integer positionId;
 
+    @JsonProperty("position_name")
+    private String positionName;
+
     @JsonProperty("org_id")
     private Integer organizationId;
+
+    @JsonProperty("org_name")
+    private String organizationName;
+
 }
