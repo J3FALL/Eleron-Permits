@@ -26,4 +26,9 @@ public class ViewController {
     public String orgsPage() {
         return "orgs";
     }
+
+    @RequestMapping(value = "/positions", method = RequestMethod.GET)
+    public String positionsPage() {
+        return "positions";
+    }
 }

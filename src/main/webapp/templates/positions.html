@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -17,66 +17,38 @@
             $('.collapsible').collapsible();
             Materialize.updateTextFields();
         });
-        $.getJSON("/api/person", function (persons) {
-            var data = {'persons': persons};
-            var source = $("#persons-template").html();
+        $.getJSON("/api/pos", function (positions) {
+            var data = {'positions': positions};
+            var source = $("#pos-template").html();
 
             var template = Handlebars.compile(source);
             $('#content').append(template(data));
-        });
-
-        Handlebars.registerHelper('name', function (last_name, first_name, middle_name) {
-            return last_name + " " + first_name[0] + "." + middle_name[0];
         });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 </head>
 <body>
-    <script id="persons-template" type="text/x-handlebars-template">
-        {{#persons}}
+    <script id="pos-template" type="text/x-handlebars-template">
+        {{#positions}}
         <li>
             <div class="collapsible-header">
                 <div class="row" style="width: 100%">
                     <div class="col s3">
-                        <p>{{name last_name first_name middle_name}}</p>
-                    </div>
-                    <div class="col s3">
-                        <p>{{org_name}}</p>
-                    </div>
-                    <div class="col s3">
-                        <p>{{position_name}}</p>
+                        <p>{{name}}</p>
                     </div>
                 </div>
             </div>
             <div class="collapsible-body">
                 <div class="row" style="width:100%">
                     <div class="input-field col s4">
-                        <input placeholder="Фамилия" value="{{last_name}}" id="last_name" type="text">
-                        <label class="active" for="last_name">Фамилия</label>
-                    </div>
-                    <div class="input-field col s4">
-                        <input placeholder="Имя" value="{{first_name}}" id="first_name" type="text">
-                        <label class="active" for="first_name">Имя</label>
-                    </div>
-                    <div class="input-field col s4">
-                        <input placeholder="Отчество" value="{{middle_name}}" id="middle_name" type="text">
-                        <label class="active" for="middle_name">Отчество</label>
-                    </div>
-                </div>
-                <div class="row" style="width:100%">
-                    <div class="input-field col s6">
-                        <input placeholder="Организация" value="{{org_name}}" id="org" type="text">
-                        <label class="active" for="org">Организация</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input placeholder="Должность" value="{{position_name}}" id="position" type="text">
-                        <label class="active" for="position">Должность</label>
+                        <input placeholder="Название" value="{{name}}" id="name" type="text">
+                        <label class="active" for="name">Название</label>
                     </div>
                 </div>
             </div>
         </li>
-        {{/persons}}
+        {{/positions}}
     </script>
     <nav>
         <div class="nav-wrapper">
