@@ -37,6 +37,9 @@ public class PermitDto {
     @JsonProperty("code_ids")
     private List<Integer> codeIds;
 
+    @JsonProperty("code_names")
+    private List<String> codeNames;
+
     @JsonProperty("pass_id")
     private Integer passId;
 

@@ -39,7 +39,14 @@ public class PermitsApplication {
                     return result;
                 };
 
+                Converter<List<Code>, List<String>> codeNameConverter = mappingContext -> {
+                    List<String> result = new ArrayList<>();
+                    mappingContext.getSource().forEach(code -> result.add(code.getName()));
+                    return result;
+                };
+
                 using(codeConverter).map(source.getCodes()).setCodeIds(null);
+                using(codeNameConverter).map(source.getCodes()).setCodeNames(null);
             }
         });
         return mapper;
