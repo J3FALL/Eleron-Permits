@@ -20,6 +20,8 @@
         $.getJSON("/api/permit", function (permits) {
             var data = {'permits' : permits};
             var source = $("#permits-template").html();
+
+            Handlebars.registerPartial("codes", $("#codes-template").html());
             var template = Handlebars.compile(source);
             $('#content').append(template(data));
         });
@@ -27,7 +29,6 @@
          return person_last_name + " " + person_first_name[0] + "." + person_middle_name[0];
          });
     </script>
-
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
@@ -97,14 +98,20 @@
                         <label class="active" for="pass">Вид пропуска</label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="chip">test</div>
+                <div class="row" style="padding-left:10px">
+                    <label>Шифры</label>
+                    </br>
+                    {{#each code_names}}
+                        {{> codes}}
+                    {{/each}}
                 </div>
             </div>
         </li>
         {{/permits}}
     </script>
-
+    <script id="codes-template" type="text/x-handlebars-template">
+        <div class="chip">{{this}}</div>
+    </script>
     <!-- Navbar goes here -->
     <nav>
         <div class="nav-wrapper">
