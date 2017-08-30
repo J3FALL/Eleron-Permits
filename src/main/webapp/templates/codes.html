@@ -17,9 +17,9 @@
             $('.collapsible').collapsible();
             Materialize.updateTextFields();
         });
-        $.getJSON("/api/pos", function (positions) {
-            var data = {'positions': positions};
-            var source = $("#pos-template").html();
+        $.getJSON("/api/code", function (codes) {
+            var data = {'codes': codes};
+            var source = $("#codes-template").html();
 
             var template = Handlebars.compile(source);
             $('#content').append(template(data));
@@ -29,8 +29,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
 </head>
 <body>
-    <script id="pos-template" type="text/x-handlebars-template">
-        {{#positions}}
+    <script id="codes-template" type="text/x-handlebars-template">
+        {{#codes}}
         <li>
             <div class="collapsible-header">
                 <div class="row" style="width: 100%">
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </li>
-        {{/positions}}
+        {{/codes}}
     </script>
     <nav>
         <div class="nav-wrapper">
